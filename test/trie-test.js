@@ -29,6 +29,16 @@ describe('Trie', function() {
       expect(trie.lookup('/a/b/d')).to.be.true;
       expect(trie.lookup('/a/e/f')).to.be.true;
       expect(trie.lookup('/a/b/x')).to.be.false;
+    });
+
+    it('can chain add calls', function() {
+      const trie = new Trie();
+
+      trie.add('abc')
+        .add('def');
+
+      expect(trie.lookup('abc')).to.be.true;
+      expect(trie.lookup('def')).to.be.true;
     })
   });
 
@@ -57,7 +67,13 @@ describe('Trie', function() {
       expect(trie.lookup('ab')).to.be.true;
       expect(trie.lookup('aef')).to.be.true;
       expect(trie.lookup('ae')).to.be.false;
-    })
+    });
+
+    it('can chain remove calls', function() {
+      trie.remove('abd').remove('aef');
+      expect(trie.lookup('abd')).to.be.false;
+      expect(trie.lookup('aef')).to.be.false;
+    });
   });
 
   describe('.isPrefix', function() {
