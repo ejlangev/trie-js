@@ -1,0 +1,27 @@
+{
+  "name": "trie-js",
+  "version": "1.0.0",
+  "description": "Trie datastructure with customer delimiters",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ejlangev/trie-js.git"
+  },
+  "keywords": [
+    "datastructure",
+    "trie"
+  ],
+  "author": "Ethan Langevin <ejl6266@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ejlangev/trie-js/issues"
+  },
+  "homepage": "https://github.com/ejlangev/trie-js#readme",
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  }
+}
