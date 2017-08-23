@@ -2,6 +2,8 @@
 
 Javascript implementation of a Trie with customizable delimiters designed for use with the node environment.
 
+[![Build Status](https://travis-ci.org/ejlangev/trie-js.svg?branch=master)](https://travis-ci.org/ejlangev/trie-js)
+
 ## Installing
 
 `npm install trie-js`
