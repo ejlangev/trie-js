@@ -1,24 +1,13 @@
 'use strict';
 
 /**
- * @param  {string} value - String to split up
- * @param  {string} delimiter - String to split on
- * @return {string[]}
- */
-function splitValue(value, delimiter) {
-  return value.split(delimiter).filter(Boolean);
-}
-
-/**
  * @param {string[]} data - List of values to add initially
  * @param {Object} options - Config options
  * @param {string} options.delimiter - Delimiter for breaking up values
  */
-function Trie(data, options) {
+function Trie(data) {
   data = data || []
-  options = options || {}
 
-  this.delimiter = options.delimiter || '';
   this.root = { children: {}, isFlagged: false };
 
   data.forEach(val => this.add(val));
@@ -30,14 +19,13 @@ function Trie(data, options) {
  */
 Trie.prototype.add = function(value) {
   let current = this.root;
-  const pieces = splitValue(value, this.delimiter);
 
-  for (let i = 0; i < pieces.length; i++) {
-    if (!current.children[pieces[i]]) {
-      current.children[pieces[i]] = { children: {}, isFlagged: false };
+  for (let piece of value) {
+    if (!current.children[piece]) {
+      current.children[piece] = { children: {}, isFlagged: false };
     }
 
-    current = current.children[pieces[i]];
+    current = current.children[piece];
   }
 
   current.isFlagged = true;
@@ -50,17 +38,16 @@ Trie.prototype.add = function(value) {
  */
 Trie.prototype.remove = function(value) {
   let current = this.root;
-  const pieces = splitValue(value, this.delimiter);
   const hierarchy = [current];
   const words = [];
 
-  for (let i = 0; i < pieces.length; i++) {
-    words.unshift(pieces[i]);
-    if (!current.children[pieces[i]]) {
+  for (let piece of value) {
+    words.unshift(piece);
+    if (!current.children[piece]) {
       return this;
     }
 
-    current = current.children[pieces[i]];
+    current = current.children[piece];
     hierarchy.unshift(current);
   }
 
@@ -85,14 +72,13 @@ Trie.prototype.remove = function(value) {
  */
 Trie.prototype.lookup = function(value) {
   let current = this.root;
-  const pieces = splitValue(value, this.delimiter);
 
-  for (let i = 0; i < pieces.length; i++) {
-    if (!current.children[pieces[i]]) {
+  for (let piece of value) {
+    if (!current.children[piece]) {
       return false;
     }
 
-    current = current.children[pieces[i]];
+    current = current.children[piece];
   }
 
   return current.isFlagged;
@@ -104,14 +90,13 @@ Trie.prototype.lookup = function(value) {
  */
 Trie.prototype.isPrefix = function(value) {
   let current = this.root;
-  const pieces = splitValue(value, this.delimiter);
 
-  for (let i = 0; i < pieces.length; i++) {
-    if (!current.children[pieces[i]]) {
+  for (let piece of value) {
+    if (!current.children[piece]) {
       return false;
     }
 
-    current = current.children[pieces[i]];
+    current = current.children[piece];
   }
 
   return Object.keys(current.children).length > 0;

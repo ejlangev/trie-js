@@ -19,16 +19,16 @@ describe('Trie', function() {
       expect(trie.lookup('abx')).to.be.false;
     });
 
-    it('can add and lookup with a delimiter', function() {
-      const trie = new Trie([], { delimiter: '/' })
-      trie.add('/a/b/c');
-      trie.add('/a/b/d');
-      trie.add('/a/e/f');
+    it('can add and lookup with a non string', function() {
+      const trie = new Trie([])
+      trie.add(['a', 'b', 'c']);
+      trie.add(['a', 'b', 'd']);
+      trie.add(['a', 'e', 'f']);
 
-      expect(trie.lookup('/a/b/c')).to.be.true;
-      expect(trie.lookup('/a/b/d')).to.be.true;
-      expect(trie.lookup('/a/e/f')).to.be.true;
-      expect(trie.lookup('/a/b/x')).to.be.false;
+      expect(trie.lookup(['a', 'b', 'c'])).to.be.true;
+      expect(trie.lookup(['a', 'b', 'd'])).to.be.true;
+      expect(trie.lookup(['a', 'e', 'f'])).to.be.true;
+      expect(trie.lookup(['a', 'b', 'x'])).to.be.false;
     });
 
     it('can chain add calls', function() {
