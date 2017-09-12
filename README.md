@@ -17,8 +17,19 @@ const trie = new Trie();
 // trie with some initial values
 const trie = new Trie(['abc', 'def']);
 
-// trie with some initial values and a specific delimiter
-const trie = new Trie(['/a/b/c', '/d/e/f'], { delimiter: '/' });
+// trie with some initial values that are also iterable
+const trie = new Trie([['a', 'b', 'c'], ['a', 'b', 'd']]);
+
+// trie with custom object implementing iterator
+const obj1 = {
+  [Symbol.iterator]: function*() {
+    yield 'a';
+    yield 'b';
+    yield 'd'
+  }
+}
+
+const trie = new Trie([obj1]);
 ```
 
 ## Adding, removing, and testing for values

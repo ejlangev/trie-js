@@ -31,6 +31,30 @@ describe('Trie', function() {
       expect(trie.lookup(['a', 'b', 'x'])).to.be.false;
     });
 
+    it('can add and lookup an custom iterator', function() {
+      const obj1 = {
+        [Symbol.iterator]: function*() {
+          yield 'a';
+          yield 'b';
+          yield 'c';
+        }
+      };
+
+      const obj2 = {
+        [Symbol.iterator]: function*() {
+          yield 'a';
+          yield 'b';
+          yield 'd';
+        }
+      };
+
+      const trie = new Trie([]);
+      trie.add(obj1);
+
+      expect(trie.lookup(obj1)).to.be.true;
+      expect(trie.lookup(obj2)).to.be.false;
+    });
+
     it('can chain add calls', function() {
       const trie = new Trie();
 
